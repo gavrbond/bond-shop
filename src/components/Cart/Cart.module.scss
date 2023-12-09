@@ -1,0 +1,112 @@
+.basket {
+  display: flex;
+  flex-direction: column;
+  width: 50%;
+  background-color: rgb(255, 255, 255);
+  border-radius: 10px;
+  padding: 10px;
+}
+.basketContainer {
+  border: 1px solid #000;
+  border-radius: 10px;
+
+  padding: 10px;
+  display: flex;
+}
+.imgContainer {
+  height: 180px;
+}
+.img {
+  width: 100%;
+  height: 100%;
+
+  object-fit: contain;
+  object-position: center;
+}
+.info {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: 15px;
+  padding: 0 10px;
+  width: 100%;
+}
+.title {
+  font-size: 14px;
+  text-align: center;
+  background-color: aqua;
+  padding: 5px 10px;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+}
+.desc {
+  background-color: wheat;
+  padding: 2px 10px;
+  border: 1px solid gainsboro;
+  border-radius: 10px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  gap: 5px;
+  font-size: 14px;
+  & p {
+    color: red;
+  }
+}
+.price {
+  padding: 1px 10px;
+  border-radius: 10px;
+  color: red;
+  font-size: 18px;
+  & span {
+    color: blue;
+    font-size: 18px;
+  }
+}
+.infoMoney {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.count {
+  border: 1px solid gainsboro;
+  padding: 3px;
+  border-radius: 3px;
+  display: flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 18px;
+  background-color: aliceblue;
+  color: red;
+}
+
+.icon {
+  color: rgb(61, 134, 222);
+  font-size: 25px;
+  cursor: pointer;
+  &:hover {
+    color: blue;
+  }
+}
+
+.iconBtn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: transparent;
+  border: none;
+}
+.navigation {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  font-size: 12px;
+  color: rgb(154, 154, 154);
+  & button {
+    transition: all 0.3s linear;
+    &:hover {
+      color: #000;
+    }
+  }
+}

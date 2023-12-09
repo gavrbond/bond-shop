@@ -1,0 +1,83 @@
+.root {
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 999;
+  width: 100%;
+  height: 100vh;
+  background-color: rgb(0, 0, 0, 0.3);
+  display: flex;
+  justify-self: center;
+  align-items: center;
+}
+.signUp {
+  position: relative;
+  background-color: #ffff;
+  width: 400px;
+  height: 350px;
+  margin: 0 auto;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  z-index: 1;
+}
+.form {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  width: 100%;
+  padding: 0 30px;
+  gap: 30px;
+}
+.inputForm {
+  width: 100%;
+  padding: 5px 10px;
+  border-bottom: 1px solid #000;
+  color: #000;
+  font-weight: 400;
+  font-size: 16px;
+  &::placeholder {
+    font-size: 14px;
+    color: #b5b3b3;
+  }
+}
+.btnSignUp {
+  display: inline-block;
+  border-radius: 10px;
+  background-color: #0099ff;
+  padding: 8px 14px;
+  color: #000000;
+  transition: all 0.3s linear;
+  &:hover {
+    background-color: rgb(0, 94, 157);
+    color: #fff;
+  }
+}
+.btnClose {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border-radius: 50%;
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 2;
+  font-size: 25px;
+  color: #fff4f4;
+  background-color: #0099ff;
+
+  transition: all 0.3s linear;
+  &:hover {
+    color: #000;
+  }
+}
+
+.error {
+  color: red;
+  font-size: 10px;
+  margin-top: 10px;
+}
+.inputDiv {
+  width: 100%;
+}

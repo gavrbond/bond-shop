@@ -1,0 +1,15 @@
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 35px;
+  color: #393e46;
+}
+.link {
+  transition: all 0.3s linear;
+  padding: 10px;
+}
+.active {
+  background-color: #393e46;
+  border-radius: 10px;
+  color: #fff;
+}

@@ -1,0 +1,49 @@
+.root {
+  height: 100px;
+  background-color: white;
+  color: white;
+  padding: 40px 60px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 60px;
+  z-index: 999;
+}
+
+.info {
+  width: 100%;
+  display: flex;
+  gap: 50px;
+}
+
+.logo {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  font-size: 25px;
+  font-weight: 800;
+  text-transform: uppercase;
+  background-color: rgb(221, 159, 77);
+  padding: 5px;
+  border-radius: 10px;
+}
+
+.icon {
+  cursor: pointer;
+  font-size: 30px;
+  color: #a0a0a0;
+  transition: all 0.3s linear;
+  &:hover {
+    color: #393e46;
+  }
+}
+.actions {
+  display: flex;
+
+  // gap: 10px;
+}
+
+// .actionsAuthorised {
+//   gap: 20px;
+// }
