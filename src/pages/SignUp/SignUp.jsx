@@ -1,6 +1,6 @@
 import styles from "./SignUp.module.scss"
 import { AiOutlineCloseCircle } from "react-icons/ai"
-import { Link } from "react-router-dom"
+import { Link, useNavigate } from "react-router-dom"
 import { useState } from "react"
 import Loader from "../../components/Loader/Loader"
 import { supabase } from "../../supabaseClient"
@@ -28,6 +28,7 @@ const SignUp = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [successMessage, setSuccessMessage] = useState(null)
   const [errorMessage, setErrorMessage] = useState(null)
+  const navigate = useNavigate()
 
   const handleSubmit = async (e) => {
     e.preventDefault()
@@ -41,11 +42,18 @@ const SignUp = () => {
     } else {
       try {
         setIsLoading(true)
-        const { error } = await supabase.auth.signUp(userSignUp)
-        if (error) {
-          setErrorMessage(error.error_description || error.message)
+        const { data, error: signUpError } = await supabase.auth.signUp(
+          userSignUp
+        )
+        const userId = data.user.id
+        console.log(data)
+        await supabase.from("Carts").insert([{ userId, cart: [] }])
+
+        if (signUpError) {
+          setErrorMessage(signUpError.error_description || signUpError.message)
         } else {
           setSuccessMessage("Регистрация прошла успешно!")
+          navigate("/signin")
         }
       } finally {
         setIsLoading(false)
@@ -72,7 +80,7 @@ const SignUp = () => {
         ) : (
           <form onSubmit={handleSubmit} className={styles.form} action=''>
             {inputMapping.map(({ name, placeholder, type }) => (
-              <div className={styles.inputDiv}>
+              <div key={name} className={styles.inputDiv}>
                 <input
                   className={styles.inputForm}
                   value={userSignUp[name]}

@@ -3,6 +3,11 @@
   align-items: center;
   gap: 35px;
   color: #393e46;
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+  }
 }
 .link {
   transition: all 0.3s linear;

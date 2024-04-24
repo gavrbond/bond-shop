@@ -19,9 +19,15 @@
   background-color: white;
   border-radius: 10px;
   padding: 15px 25px;
+  @media (max-width: 768px) {
+    width: 70%;
+    height: 60%;
+  }
 }
 .imgContainer {
   width: 50%;
+  @media (max-width: 768px) {
+  }
 }
 .img {
   width: 100%;
@@ -38,6 +44,9 @@
   border-radius: 10px;
   gap: 20px;
   width: 50%;
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 }
 .title {
   border: 1px solid rgb(87, 188, 149);
@@ -50,6 +59,9 @@
   color: rgb(17, 0, 255);
   & p {
     color: #ff0000;
+  }
+  @media (max-width: 768px) {
+    font-size: 12px;
   }
 }
 .desc {
@@ -64,6 +76,14 @@
   & p {
     color: #ff0000;
   }
+  @media (max-width: 768px) {
+    font-size: 12px;
+    overflow: hidden;
+    white-space: nowrap;
+
+    /* Добавляем троеточия в конце предложения, если текст не помещается в блок */
+    text-overflow: ellipsis;
+  }
 }
 .price {
   border: 1px solid rgb(87, 188, 149);
@@ -75,6 +95,9 @@
   color: rgb(17, 0, 255);
   & span {
     color: #ff0000;
+  }
+  @media (max-width: 768px) {
+    font-size: 12px;
   }
 }
 .category {
@@ -88,30 +111,18 @@
   & span {
     color: #ff0000;
   }
-}
-.btn {
-  display: flex;
-  justify-content: center;
-  gap: 30px;
-  margin-top: 20px;
-}
-.cardFavoritesBtn {
-  background-color: rgb(0, 213, 255);
-  padding: 10px 20px;
-  border-radius: 10px;
-  color: #f3f3f3;
-  transition: all 0.3s linear;
-  &:hover {
-    color: #000;
-    background-color: #ffffff;
-    box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
-      0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  @media (max-width: 768px) {
+    font-size: 12px;
+    display: flex;
+    flex-direction: column;
   }
 }
-.cardBasketBtn {
+
+.btnBasket {
   background-color: rgb(231, 69, 130);
-  padding: 10px 20px;
+  padding: 5px 10px;
   border-radius: 10px;
+  font-size: 15px;
   color: #f3f3f3;
   transition: all 0.3s linear;
   &:hover {
@@ -119,5 +130,9 @@
     background-color: rgb(255, 255, 255);
     box-shadow: 0 12px 16px 0 rgba(0, 0, 0, 0.24),
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
+  }
+  @media (max-width: 768px) {
+    font-size: 12px;
+    padding: 3px 7px;
   }
 }

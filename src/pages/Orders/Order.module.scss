@@ -1,0 +1,116 @@
+.root {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  background-color: rgb(243, 243, 243);
+  padding: 10px;
+}
+.order {
+  position: relative;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 10px;
+  width: 50%;
+  margin: 0 auto;
+  border-radius: 10px;
+  padding: 45px 20px 10px 20px;
+  background-color: rgb(255, 255, 255);
+  @media (max-width: 768px) {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 5px;
+  }
+}
+
+.imgContainer {
+  height: 100px;
+  & img {
+    width: 100%;
+    height: 100%;
+    object-fit: contain;
+    object-position: center;
+  }
+}
+
+.info {
+  cursor: pointer;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: 150px;
+  border: 1px solid #b3b3b3;
+  border-radius: 5px;
+  padding: 5px;
+  transition: all 0.3s linear;
+  &:hover {
+    box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.5);
+  }
+  @media (max-width: 768px) {
+    margin-top: 10px;
+  }
+}
+.title {
+  text-align: center;
+  font-size: 12px;
+  /* Эти опции - необходимые условия */
+  overflow: hidden;
+  white-space: nowrap;
+
+  /* Добавляем троеточия в конце предложения, если текст не помещается в блок */
+  text-overflow: ellipsis;
+}
+.quantity {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  border: 1px solid #000;
+  padding: 1px;
+  border-radius: 7%;
+  font-size: 10px;
+  gap: 2px;
+
+  & span {
+    font-size: 14px;
+    padding: 2px 5px;
+    border-radius: 10px;
+    color: #fff;
+    background-color: #647bff;
+  }
+}
+.infoOrder {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 20px;
+  position: absolute;
+  top: 0;
+  left: 0;
+  z-index: 3;
+  width: 100%;
+  background-color: rgb(48, 95, 200);
+  border-radius: 10px 10px 0 0;
+  & .status {
+    color: #fff;
+
+    & span {
+      border: 1px solid #ffffff;
+      font-size: 12px;
+      background-color: #000000;
+      padding: 2px 5px;
+      border-radius: 2px;
+      color: #15ff00;
+      @media (max-width: 768px) {
+        padding: 1px 3px;
+        font-size: 10px;
+      }
+    }
+  }
+  & .price {
+    color: #fff;
+    & span {
+      color: #15ff00;
+
+      font-weight: 800;
+    }
+  }
+}

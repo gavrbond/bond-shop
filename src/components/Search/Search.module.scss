@@ -2,18 +2,25 @@
   width: 100%;
   position: relative;
   display: flex;
+  // @media (max-width: 768px) {
+  //   display: none;
+  // }
 }
 
 .search {
   // flex-grow: 1;
   width: 100%;
-  padding-left: 40px;
+  padding: 10px 0 10px 40px;
   border-radius: 30px;
   background-color: #dfdfdf;
   transition: all 0.3s linear;
   color: #000;
   &:hover {
     background-color: #efefef;
+  }
+  @media (max-width: 768px) {
+    width: 100px;
+    padding: 5px 0 5px 10px;
   }
 }
 
@@ -25,6 +32,9 @@
   z-index: 1;
   font-size: 18px;
   color: #000;
+  @media (max-width: 768px) {
+    display: none;
+  }
 }
 .iconClose {
   cursor: pointer;

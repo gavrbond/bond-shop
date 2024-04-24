@@ -1,15 +1,19 @@
 import { AiOutlineUserAdd } from "react-icons/ai"
 import { BiUserCircle } from "react-icons/bi"
 import { Link } from "react-router-dom"
-import Icons from "../Icons/Icons"
 import Search from "../Search/Search"
 import styles from "./Header.module.scss"
 import cn from "classnames"
 import Nav from "../Nav/Nav"
 import { useAuth } from "../../AuthContext"
+import Actions from "../Actions/Actions"
+import { useState } from "react"
+import { IoSearchOutline } from "react-icons/io5"
 
 const Header = () => {
   const { session } = useAuth()
+  const [showCategories, setShowCategories] = useState(false)
+  const [showInput, setShowInput] = useState(false)
 
   return (
     <div className={styles.root}>
@@ -17,16 +21,43 @@ const Header = () => {
         <Link to='/' className={styles.logo}>
           Gavr
         </Link>
-        {/* <Link to='/' className={styles.logo}>
-          Gavr
-        </Link> */}
-        <Nav />
-        <Search />
-      </div>
+        <div className={styles.adaptive}>
+          <div className={styles.searchInAdaptive}>
+            <button
+              onClick={() => setShowInput(!showInput)}
+              className={styles.searchBtn}
+            >
+              <IoSearchOutline />
+            </button>
+            {showInput && (
+              <div className={styles.searchAdaptive}>
+                <Search />
+              </div>
+            )}
+          </div>
 
+          <button
+            onClick={() => setShowCategories(!showCategories)}
+            className={styles.btnCategory}
+          >
+            categories
+          </button>
+          {showCategories && (
+            <>
+              <div className={styles.wrapperCategory}>
+                <Nav />
+              </div>
+            </>
+          )}
+        </div>
+        <div className={styles.navigationCategories}>
+          <Nav />
+          <Search className={styles.searchBox} />
+        </div>
+      </div>
       <div className={cn(styles.actions, session && styles.actionsAuthOrised)}>
         {session ? (
-          <Icons />
+          <Actions />
         ) : (
           <>
             <Link to='/signup'>

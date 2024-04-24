@@ -12,6 +12,9 @@
   &:hover {
     color: #393e46;
   }
+  @media (max-width: 550px) {
+    font-size: 25px;
+  }
 }
 .basket {
   position: relative;

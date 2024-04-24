@@ -8,12 +8,20 @@
   align-items: center;
   gap: 60px;
   z-index: 999;
+  @media (max-width: 768px) {
+    gap: 10px;
+    padding: 30px 20px;
+  }
 }
 
 .info {
   width: 100%;
   display: flex;
+  align-items: center;
   gap: 50px;
+  @media (max-width: 768px) {
+    gap: 10px;
+  }
 }
 
 .logo {
@@ -27,6 +35,9 @@
   background-color: rgb(221, 159, 77);
   padding: 5px;
   border-radius: 10px;
+  @media (max-width: 768px) {
+    font-size: 22px;
+  }
 }
 
 .icon {
@@ -43,7 +54,50 @@
 
   // gap: 10px;
 }
-
-// .actionsAuthorised {
-//   gap: 20px;
-// }
+.adaptive {
+  display: none;
+  position: relative;
+  @media (max-width: 768px) {
+    display: flex;
+    gap: 50px;
+  }
+}
+.btnCategory {
+  font-size: 16px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 5px 10px;
+  border-radius: 10px;
+  background-color: rgb(61, 134, 222);
+}
+.wrapperCategory {
+  position: absolute;
+  top: 35px;
+  left: 40px;
+  z-index: 1;
+  width: 100%;
+  border: 1px solid #000;
+  padding: 5px;
+  background-color: #fff;
+  border-radius: 10px;
+}
+.navigationCategories {
+  display: flex;
+  width: 100%;
+  gap: 20px;
+  @media (max-width: 768px) {
+    display: none;
+  }
+}
+.searchInAdaptive {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+}
+.searchBtn {
+  cursor: pointer;
+  color: #959595;
+  font-size: 25px;
+}

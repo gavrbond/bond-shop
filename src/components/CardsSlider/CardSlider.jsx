@@ -5,21 +5,29 @@ import { useState, useEffect } from "react"
 import cn from "classnames"
 import { MdArrowBackIos } from "react-icons/md"
 import { MdArrowForwardIos } from "react-icons/md"
-import { addCart } from "../../redux/slices/cartSlice"
-import { useDispatch } from "react-redux"
+import { supabase } from "../../supabaseClient"
+import { useCart } from "../../hooks/useCart"
+
 const CardSlider = () => {
-  const [items, setItems] = useState([])
+  const [goods, setGoods] = useState([])
   const [indexActive, setIndexActive] = useState(0)
-  const dispatch = useDispatch()
-  console.log(indexActive)
+  // const [addProducts, setAddProducts] = useState([])
+
+  const { loading, addItem } = useCart()
+  // const sendingItems = useSendingItems()
+
+  // const addCard = (item) => {
+  //   setAddProducts((prev) => [...prev, item])
+  //   sendingItems(item)
+  // }
   const requestData = async () => {
     const res = await axios.get("https://fakestoreapi.com/products?limit=5")
-    setItems(res.data)
+    setGoods(res.data)
   }
 
   const nextSlider = () => {
     setIndexActive((prev) => {
-      return indexActive <= items.length - 1 ? prev + 1 : prev
+      return indexActive <= goods.length - 1 ? prev + 1 : prev
     })
   }
   const prevSlider = () => {
@@ -29,26 +37,21 @@ const CardSlider = () => {
   }
 
   useEffect(() => {
-    const timeSlider = setTimeout(() => {
-      setIndexActive((prev) => prev + 1)
-    }, 5000)
-    return () => {
-      clearTimeout(timeSlider)
-    }
-  }, [indexActive])
-
-  useEffect(() => {
-    if (indexActive >= items.length) {
+    if (indexActive >= goods.length) {
       setIndexActive(0)
     }
     if (indexActive < 0) {
-      setIndexActive(items.length - 1)
+      setIndexActive(goods.length - 1)
     }
-  }, [indexActive, items])
+  }, [indexActive, goods])
 
   useEffect(() => {
     requestData()
   }, [])
+
+  // useEffect(() => {
+  //   sendingItems(addProducts)
+  // }, [addProducts, sendingItems])
 
   return (
     <div className={styles.root}>
@@ -56,7 +59,7 @@ const CardSlider = () => {
         <MdArrowBackIos className={styles.iconLeft} onClick={prevSlider} />
       </button>
 
-      {items.map((item, i) => (
+      {goods.map((item, i) => (
         <div
           onClick={() => setIndexActive(i)}
           key={item.id}
@@ -71,9 +74,9 @@ const CardSlider = () => {
             <div className={styles.price}>Цена: {item.price}$</div>
           </div>
           <div className={styles.btns}>
-            <button className={styles.btnFavorites}>В избранное</button>
             <button
-              onClick={() => dispatch(addCart(item))}
+              disabled={loading}
+              onClick={() => addItem(item)}
               className={styles.btnBasket}
             >
               В корзину
