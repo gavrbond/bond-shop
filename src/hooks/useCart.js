@@ -6,7 +6,7 @@ import { cartState } from "../states/cartState"
 export const useCart = () => {
   const [cart, setCart] = useRecoilState(cartState)
   // const [cart, setCart] = useState([])
-  const [loading, setLoading] = useState(false)
+  const [isLoading, setLoading] = useState(false)
 
   const totalCount = cart.reduce((acc, { quantity }) => quantity + acc, 0)
   const totalPrice = cart.reduce(
@@ -44,9 +44,10 @@ export const useCart = () => {
 
   const fetchCartData = async () => {
     try {
+      setLoading(true)
+      console.log("render Fetch")
       const user = await supabase.auth.getUser()
       const userId = user.data.user.id
-      setLoading(true)
 
       const { data, error } = await supabase
         .from("Carts")
@@ -121,6 +122,6 @@ export const useCart = () => {
     totalCount,
     totalPrice,
     emptyCart,
-    loading,
+    isLoading,
   }
 }

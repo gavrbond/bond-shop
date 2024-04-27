@@ -60,12 +60,21 @@ const Header = () => {
           <Actions />
         ) : (
           <>
-            <Link to='/signup'>
-              <AiOutlineUserAdd className={styles.icon} />
-            </Link>
-            <Link to='/signin'>
-              <BiUserCircle className={styles.icon} />
-            </Link>
+            <div className={styles.comunication}>
+              <Link to='/signin'>
+                <div className={styles.sign}>
+                  <BiUserCircle className={styles.icon} />
+                  <div className={styles.signTittle}>LogIN</div>
+                </div>
+              </Link>
+              <Link to='/signup'>
+                <div className={styles.sign}>
+                  <AiOutlineUserAdd className={styles.icon} />
+
+                  <div className={styles.signTittle}>SignUP</div>
+                </div>
+              </Link>
+            </div>
           </>
         )}
       </div>

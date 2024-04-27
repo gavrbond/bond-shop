@@ -46,14 +46,13 @@ const SignUp = () => {
           userSignUp
         )
         const userId = data.user.id
-        console.log(data)
         await supabase.from("Carts").insert([{ userId, cart: [] }])
 
         if (signUpError) {
           setErrorMessage(signUpError.error_description || signUpError.message)
         } else {
           setSuccessMessage("Регистрация прошла успешно!")
-          navigate("/signin")
+          navigate("/")
         }
       } finally {
         setIsLoading(false)
@@ -76,7 +75,7 @@ const SignUp = () => {
     <div className={styles.root}>
       <div className={styles.signUp}>
         {isLoading ? (
-          <Loader />
+          <Loader size='200' />
         ) : (
           <form onSubmit={handleSubmit} className={styles.form} action=''>
             {inputMapping.map(({ name, placeholder, type }) => (

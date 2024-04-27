@@ -7,6 +7,7 @@ import { MdArrowBackIos } from "react-icons/md"
 import { MdArrowForwardIos } from "react-icons/md"
 import { supabase } from "../../supabaseClient"
 import { useCart } from "../../hooks/useCart"
+import MyButton from "../MyButton/MyButton"
 
 const CardSlider = () => {
   const [goods, setGoods] = useState([])
@@ -73,15 +74,15 @@ const CardSlider = () => {
             <div className={styles.title}>{item.title}</div>
             <div className={styles.price}>Цена: {item.price}$</div>
           </div>
-          <div className={styles.btns}>
-            <button
-              disabled={loading}
-              onClick={() => addItem(item)}
-              className={styles.btnBasket}
-            >
-              В корзину
-            </button>
-          </div>
+          <div className={styles.btns}></div>
+          <MyButton
+            disabled={loading}
+            onClick={() => addItem(item)}
+            styles={styles.btnBasket}
+          >
+            {" "}
+            В корзину{" "}
+          </MyButton>
         </div>
       ))}
       <button>

@@ -5,6 +5,7 @@ import { AiFillMinusCircle } from "react-icons/ai"
 import { IoMdClose } from "react-icons/io"
 import { useCart } from "../../hooks/useCart"
 import { useSelectedItems } from "../../hooks/useSelectedItems"
+
 import cn from "classnames"
 
 const Product = ({
@@ -31,6 +32,7 @@ const Product = ({
   useEffect(() => {
     selectAll(item)
   }, [])
+
   return (
     <div className={styles.basket}>
       <input
@@ -77,7 +79,7 @@ const Product = ({
               </button>
             </div>
             <div className={styles.navigation}>
-              <button onClick={() => deleteItem(id)}>
+              <button onClick={() => deleteItem(item.id)}>
                 {" "}
                 <div>
                   <IoMdClose />

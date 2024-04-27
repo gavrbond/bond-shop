@@ -1,15 +1,17 @@
 import React from "react"
-import { Circles } from "react-loader-spinner"
-const Loader = () => {
+import { ColorRing } from "react-loader-spinner"
+import styles from "./Loader.module.scss"
+
+const Loader = ({ size }) => {
   return (
-    <Circles
-      height='200'
-      width='200'
-      radius='9'
-      color='green'
-      ariaLabel='loading'
-      wrapperStyle
-      wrapperClass
+    <ColorRing
+      visible={true}
+      height={size}
+      width={size}
+      ariaLabel='color-ring-loading'
+      wrapperStyle={{}}
+      wrapperClass='color-ring-wrapper'
+      colors={["#e15b64", "#f47e60", "#f8b26a", "#abbd81", "#849b87"]}
     />
   )
 }

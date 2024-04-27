@@ -81,3 +81,23 @@
       0 17px 50px 0 rgba(0, 0, 0, 0.19);
   }
 }
+.red {
+  background-color: red;
+}
+.loader {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  z-index: 1;
+  background-color: #b3b3b3;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  & .containerLoader {
+    background-color: #fff;
+    padding: 30px;
+    border-radius: 10px;
+  }
+}

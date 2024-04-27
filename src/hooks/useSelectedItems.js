@@ -8,12 +8,21 @@ export const useSelectedItems = () => {
 
   useEffect(() => {
     setCheckedItems((prev) => {
-      return prev.map((item) => {
-        const findItem = items.find((product) => product.id === item.id)
-        return findItem ? findItem : item
-      })
+      return prev
+        .filter((item) => items.some((el) => el.id === item.id))
+        .map((item) => {
+          const findItem = items.find((product) => product.id === item.id)
+          return findItem ? findItem : item
+        })
     })
   }, [items])
+
+  const deleteCheckedItems = (id) => {
+    console.log(id)
+    setCheckedItems((prev) => {
+      return prev.filter((item) => item.id !== id)
+    })
+  }
 
   const clearAllChecked = () => {
     setCheckedItems([])
@@ -40,5 +49,6 @@ export const useSelectedItems = () => {
     clearAllChecked,
     selectAll,
     toggleItem,
+    deleteCheckedItems,
   }
 }

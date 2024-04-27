@@ -3,8 +3,8 @@ import styles from "./Card.module.scss"
 import { useParams } from "react-router-dom"
 import { useState, useEffect } from "react"
 import Loader from "../../components/Loader/Loader"
-import Buttons from "../../components/Buttons/Buttons"
 import { useCart } from "../../hooks/useCart"
+import MyButton from "../../components/MyButton/MyButton"
 const Card = () => {
   const [item, setItem] = useState(null)
   const { id } = useParams()
@@ -40,12 +40,13 @@ const Card = () => {
                   <span>Категория: </span>
                   {item.category}
                 </div>
-                <button
+                <MyButton
                   onClick={() => addItem(item)}
-                  className={styles.btnBasket}
+                  styles={styles.btnBasket}
                 >
-                  В корзину
-                </button>
+                  {" "}
+                  В корзину{" "}
+                </MyButton>
                 {/* <div className={styles.btn}>
                   <button className={styles.btnFavorites}>В избранное</button>
                   <button className={styles.btnBasket}>В корзину</button>
@@ -54,7 +55,7 @@ const Card = () => {
             </>
           ) : (
             <div className={styles.loader}>
-              <Loader />
+              <Loader size='400' />
             </div>
           )}
         </div>

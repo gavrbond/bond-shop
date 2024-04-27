@@ -53,30 +53,37 @@ const SignIn = () => {
   return (
     <div className={styles.root}>
       <div className={styles.signIn}>
-        {isLoading && <Loader />}
-        <form onSubmit={handleSubmit} className={styles.form}>
-          <input
-            placeholder='Введите email'
-            className={styles.inputSignIn}
-            onChange={handleChange}
-            name='email'
-            type='email'
-          />
-          <input
-            placeholder='Введите password'
-            className={styles.inputSignIn}
-            onChange={handleChange}
-            name='password'
-            type='password'
-          />
-          <button type='submit' className={styles.btn}>
-            Войти
-          </button>
-          <Link to='/' className={styles.btnClose}>
-            <AiOutlineCloseCircle />
-          </Link>
-          {errorMessage && <div className={styles.error}>{errorMessage}</div>}
-        </form>
+        {isLoading ? (
+          <Loader size='300' />
+        ) : (
+          <>
+            <form onSubmit={handleSubmit} className={styles.form}>
+              <input
+                placeholder='Введите email'
+                className={styles.inputSignIn}
+                onChange={handleChange}
+                name='email'
+                type='email'
+              />
+              <input
+                placeholder='Введите password'
+                className={styles.inputSignIn}
+                onChange={handleChange}
+                name='password'
+                type='password'
+              />
+              <button type='submit' className={styles.btn}>
+                Войти
+              </button>
+              <Link to='/' className={styles.btnClose}>
+                <AiOutlineCloseCircle />
+              </Link>
+              {errorMessage && (
+                <div className={styles.error}>{errorMessage}</div>
+              )}
+            </form>
+          </>
+        )}
       </div>
     </div>
   )
