@@ -70,7 +70,6 @@ const Category = () => {
                         {" "}
                         В корзину{" "}
                       </MyButton>
-                      <MyButton className={styles.red}>Категории</MyButton>
                     </div>
                   </div>
                 )
