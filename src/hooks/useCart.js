@@ -58,7 +58,7 @@ export const useCart = () => {
         setCart(items)
       }
     } catch (error) {
-      console.error('Произошла ошибка:', error.message)
+      console.error('Произошла ошибкаааа:', error.message)
     } finally {
       setLoading(false)
     }
