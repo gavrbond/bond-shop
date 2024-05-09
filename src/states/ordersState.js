@@ -1,6 +1,6 @@
-import { atom } from "recoil"
+import { atom } from 'recoil'
 
 export const ordersState = atom({
-  key: "ordersState",
-  default: [],
+  key: 'ordersState',
+  default: null,
 })

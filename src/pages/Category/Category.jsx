@@ -7,34 +7,42 @@ import Sort from '../../components/Sort/Sort'
 import { useCart } from '../../hooks/useCart'
 import { useFetchCards } from '../../hooks/useFetchCards'
 import styles from './Category.module.scss'
+import { Placeholder } from '../../components/Placeholder/Placeholder'
 
 const Category = () => {
   const { searchItems } = useContext(SearchInput)
-  const { isLoading, data } = useFetchCards()
-  const { addItem } = useCart()
+  const { isLoading: isFetchCardsLoading, data } = useFetchCards()
+  const { addItem, isLoading: isCartLoading } = useCart()
 
   const filteredData = data?.filter(({ title }) =>
     title.toLowerCase().includes(searchItems.toLowerCase())
   )
 
-  if (isLoading) {
+  if (isFetchCardsLoading || isCartLoading) {
     return (
-      <div className={styles.loader}>
-        <Loader size={500} />
+      <div className={styles.root}>
+        <div className={styles.loader}>
+          <Loader size={500} />
+        </div>
       </div>
     )
   }
 
+  // Сделать Плейсхолдер
+  if (filteredData.length === 0) {
+    return <Placeholder title="Ничего не найдено" />
+  }
+
   return (
-    <div className={styles.categoryContainer}>
+    <div className={styles.root}>
       <Sort />
       {filteredData.length > 0 && (
-        <div className={styles.root}>
+        <div className={styles.container}>
           {filteredData?.map(item => {
             const { id, price, title, image } = item
 
             return (
-              <div key={id} className={styles.category}>
+              <div key={id} className={styles.categoryItem}>
                 <Link to={`/card/${id}`} className={styles.link}>
                   <div className={styles.imgContainer}>
                     <img alt="#" src={image} className={styles.img} />
