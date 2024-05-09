@@ -1,14 +1,14 @@
-import { AiOutlineUserAdd } from "react-icons/ai"
-import { BiUserCircle } from "react-icons/bi"
-import { Link } from "react-router-dom"
-import Search from "../Search/Search"
-import styles from "./Header.module.scss"
-import cn from "classnames"
-import Nav from "../Nav/Nav"
-import { useAuth } from "../../AuthContext"
-import Actions from "../Actions/Actions"
-import { useState } from "react"
-import { IoSearchOutline } from "react-icons/io5"
+import { AiOutlineUserAdd } from 'react-icons/ai'
+import { BiUserCircle } from 'react-icons/bi'
+import { Link } from 'react-router-dom'
+import Search from '../Search/Search'
+import styles from './Header.module.scss'
+import cn from 'classnames'
+import Nav from '../Nav/Nav'
+import { useAuth } from '../../AuthContext'
+import Actions from '../Actions/Actions'
+import { useState } from 'react'
+import { IoSearchOutline } from 'react-icons/io5'
 
 const Header = () => {
   const { session } = useAuth()
@@ -18,7 +18,7 @@ const Header = () => {
   return (
     <div className={styles.root}>
       <div className={styles.info}>
-        <Link to='/' className={styles.logo}>
+        <Link to="/" className={styles.logo}>
           Gavr
         </Link>
         <div className={styles.adaptive}>
@@ -43,11 +43,9 @@ const Header = () => {
             categories
           </button>
           {showCategories && (
-            <>
-              <div className={styles.wrapperCategory}>
-                <Nav />
-              </div>
-            </>
+            <div className={styles.wrapperCategory}>
+              <Nav />
+            </div>
           )}
         </div>
         <div className={styles.navigationCategories}>
@@ -56,18 +54,18 @@ const Header = () => {
         </div>
       </div>
       <div className={cn(styles.actions, session && styles.actionsAuthOrised)}>
-        {session ? (
+        {session?.user ? (
           <Actions />
         ) : (
           <>
             <div className={styles.comunication}>
-              <Link to='/signin'>
+              <Link to="/signin">
                 <div className={styles.sign}>
                   <BiUserCircle className={styles.icon} />
                   <div className={styles.signTittle}>LogIN</div>
                 </div>
               </Link>
-              <Link to='/signup'>
+              <Link to="/signup">
                 <div className={styles.sign}>
                   <AiOutlineUserAdd className={styles.icon} />
 

@@ -1,11 +1,10 @@
-import { useEffect, useState } from "react"
-import { supabase } from "../supabaseClient"
-import { useRecoilState } from "recoil"
-import { cartState } from "../states/cartState"
+import { useEffect, useState } from 'react'
+import { supabase } from '../supabaseClient'
+import { useRecoilState } from 'recoil'
+import { cartState } from '../states/cartState'
 
 export const useCart = () => {
   const [cart, setCart] = useRecoilState(cartState)
-  // const [cart, setCart] = useState([])
   const [isLoading, setLoading] = useState(false)
 
   const totalCount = cart.reduce((acc, { quantity }) => quantity + acc, 0)
@@ -14,15 +13,15 @@ export const useCart = () => {
     0
   )
 
-  const deleteItem = async (id) => {
+  const deleteItem = async id => {
     const user = await supabase.auth.getUser()
     const userId = user.data.user.id
 
     try {
       await supabase
-        .from("Carts")
-        .update({ cart: cart.filter((item) => item.id !== id) })
-        .eq("userId", userId)
+        .from('Carts')
+        .update({ cart: cart.filter(item => item.id !== id) })
+        .eq('userId', userId)
 
       fetchCartData()
     } catch (error) {
@@ -34,7 +33,7 @@ export const useCart = () => {
     const userId = user.data.user.id
 
     try {
-      await supabase.from("Carts").update({ cart: [] }).eq("userId", userId)
+      await supabase.from('Carts').update({ cart: [] }).eq('userId', userId)
 
       fetchCartData()
     } catch (error) {
@@ -45,33 +44,32 @@ export const useCart = () => {
   const fetchCartData = async () => {
     try {
       setLoading(true)
-      console.log("render Fetch")
       const user = await supabase.auth.getUser()
       const userId = user.data.user.id
 
       const { data, error } = await supabase
-        .from("Carts")
-        .select("cart")
-        .eq("userId", userId)
+        .from('Carts')
+        .select('cart')
+        .eq('userId', userId)
       if (error) {
-        console.error("Ошибка при получении данных:", error.message)
+        console.error('Ошибка при получении данных:', error.message)
       } else if (data) {
         const items = data[0].cart || []
         setCart(items)
       }
     } catch (error) {
-      console.error("Произошла ошибка:", error.message)
+      console.error('Произошла ошибка:', error.message)
     } finally {
       setLoading(false)
     }
   }
 
-  const addItemHandler = (item) => {
+  const addItemHandler = item => {
     let cartCopy = [...cart]
 
     const findItem = cartCopy.some(({ id }) => id === item.id)
     if (findItem) {
-      cartCopy = cartCopy.map((product) => {
+      cartCopy = cartCopy.map(product => {
         return product.id === item.id
           ? {
               ...item,
@@ -82,30 +80,19 @@ export const useCart = () => {
     } else {
       cartCopy.push({ ...item, quantity: 1 })
     }
-    console.log(findItem)
-    // const targetIndex = cartCopy.findIndex(({ id }) => id === item.id)
-    // if (targetIndex >= 0) {
-    //   const targetItem = cartCopy[targetIndex]
-    //   console.log(targetItem)
-    //   cartCopy[targetIndex] = {
-    //     ...targetItem,
-    //     quantity: item.quantity || targetItem.quantity + 1,
-    //   }
-    // } else {
-    //   cartCopy.push({ ...item, quantity: 1 })
-    // }
+
     return cartCopy
   }
 
-  const addItem = async (item) => {
+  const addItem = async item => {
     const user = await supabase.auth.getUser()
     const userId = user.data.user.id
 
     try {
       await supabase
-        .from("Carts")
+        .from('Carts')
         .update({ cart: addItemHandler(item) })
-        .eq("userId", userId)
+        .eq('userId', userId)
 
       fetchCartData()
     } catch (error) {
