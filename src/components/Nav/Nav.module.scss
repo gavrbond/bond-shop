@@ -8,13 +8,14 @@
     flex-direction: column;
     gap: 5px;
   }
+
+  & a.active {
+    background-color: #393e46;
+    border-radius: 10px;
+    color: #fff;
+  }
 }
+
 .link {
-  transition: all 0.3s linear;
   padding: 10px;
-}
-.active {
-  background-color: #393e46;
-  border-radius: 10px;
-  color: #fff;
 }

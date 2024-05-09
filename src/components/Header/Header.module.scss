@@ -45,6 +45,7 @@
 
   // gap: 10px;
 }
+
 .adaptive {
   display: none;
   position: relative;
@@ -53,6 +54,7 @@
     gap: 50px;
   }
 }
+
 .btnCategory {
   font-size: 16px;
   cursor: pointer;
@@ -63,6 +65,7 @@
   border-radius: 10px;
   background-color: rgb(61, 134, 222);
 }
+
 .wrapperCategory {
   position: absolute;
   top: 35px;
@@ -74,6 +77,7 @@
   background-color: #fff;
   border-radius: 10px;
 }
+
 .navigationCategories {
   display: flex;
   width: 100%;
@@ -82,11 +86,13 @@
     display: none;
   }
 }
+
 .searchInAdaptive {
   position: relative;
   display: flex;
   flex-direction: column;
 }
+
 .searchBtn {
   cursor: pointer;
   color: #959595;
@@ -102,21 +108,26 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  & .signTittle {
+
+  .signTittle,
+  .icon {
     color: #a0a0a0;
+  }
+
+  .signTittle {
     font-size: 12px;
   }
-  & .icon {
-    color: #a0a0a0;
+
+  .icon {
     font-size: 30px;
   }
-}
-.sign:hover .icon,
-.sign:hover .signTittle {
-  cursor: pointer;
-  color: #a0a0a0;
-  transition: all 0.3s linear;
+
   &:hover {
-    color: #393e46;
+    cursor: pointer;
+    .signTittle,
+    .icon {
+      color: #393e46;
+    }
+    transition: all 0.3s linear;
   }
 }

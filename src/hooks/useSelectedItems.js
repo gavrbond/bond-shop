@@ -1,26 +1,25 @@
-import { useEffect, useState } from "react"
-import { useRecoilValue } from "recoil"
-import { cartState } from "../states/cartState"
+import { useEffect, useState } from 'react'
+import { useRecoilValue } from 'recoil'
+import { cartState } from '../states/cartState'
 
 export const useSelectedItems = () => {
   const items = useRecoilValue(cartState)
   const [checkedItems, setCheckedItems] = useState(items)
 
   useEffect(() => {
-    setCheckedItems((prev) => {
+    setCheckedItems(prev => {
       return prev
-        .filter((item) => items.some((el) => el.id === item.id))
-        .map((item) => {
-          const findItem = items.find((product) => product.id === item.id)
+        .filter(item => items.some(el => el.id === item.id))
+        .map(item => {
+          const findItem = items.find(product => product.id === item.id)
           return findItem ? findItem : item
         })
     })
   }, [items])
 
-  const deleteCheckedItems = (id) => {
-    console.log(id)
-    setCheckedItems((prev) => {
-      return prev.filter((item) => item.id !== id)
+  const deleteCheckedItems = id => {
+    setCheckedItems(prev => {
+      return prev.filter(item => item.id !== id)
     })
   }
 
@@ -32,13 +31,13 @@ export const useSelectedItems = () => {
     setCheckedItems(items)
   }
 
-  const toggleItem = (item) => {
+  const toggleItem = item => {
     if (checkedItems.some(({ id }) => id === item.id)) {
-      setCheckedItems((prev) => {
+      setCheckedItems(prev => {
         return prev.filter(({ id }) => id !== item.id)
       })
     } else {
-      setCheckedItems((prev) => {
+      setCheckedItems(prev => {
         return [...prev, item]
       })
     }

@@ -1,51 +1,29 @@
-import React from "react"
-import { Link, useParams } from "react-router-dom"
-import { useContext } from "react"
-import styles from "./Nav.module.scss"
-import cn from "classnames"
-import { useSetRecoilState } from "recoil"
-import { categoryActive } from "../../states/categoryActive"
-import { useFetchCards } from "../../hooks/useFetchCards"
+import cn from 'classnames'
+import { NavLink } from 'react-router-dom'
+import styles from './Nav.module.scss'
+
 const categories = [
-  "All",
-  "electronics",
-  "jewelery",
+  'All',
+  'electronics',
+  'jewelery',
   "men's clothing",
   "women's clothing",
 ]
 
-const Nav = () => {
-  const setCategory = useSetRecoilState(categoryActive)
-  // const { setCategoryActive } = useContext(Items)
-  const { category } = useParams()
-
-  // const dispatch = useDispatch()
-  return (
-    <nav className={styles.nav}>
-      {categories.map((cat, i) => (
-        <Link key={crypto.randomUUID()} to={`/category/${cat}`}>
-          <div
-            onClick={() => setCategory(cat)}
-            className={cn(styles.link, cat === category && styles.active)}
-          >
-            {cat}
-          </div>
-        </Link>
-      ))}
-      {/* {items.map((category) => {
-        return (
-          <Link key={crypto.randomUUID()} to={`/category/${category}`}>
-            <div className={styles.link}> {category}</div>
-          </Link>
-        )
-      })} */}
-
-      {/* <div className={styles.link}>electronics</div>
-      <div className={styles.link}>jewelery</div>
-      <div className={styles.link}>men's clothing</div>
-      <div className={styles.link}>women`s clothing</div> */}
-    </nav>
-  )
-}
+const Nav = () => (
+  <nav className={styles.nav}>
+    {categories.map(category => (
+      <NavLink
+        key={category}
+        to={`/category/${category}`}
+        className={({ isActive }) =>
+          cn({ [styles.active]: isActive }, styles.link)
+        }
+      >
+        {category}
+      </NavLink>
+    ))}
+  </nav>
+)
 
 export default Nav
