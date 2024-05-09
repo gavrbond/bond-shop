@@ -8,13 +8,14 @@ import { MdArrowForwardIos } from "react-icons/md"
 import { supabase } from "../../supabaseClient"
 import { useCart } from "../../hooks/useCart"
 import MyButton from "../MyButton/MyButton"
+import Loader from "../Loader/Loader"
 
 const CardSlider = () => {
   const [goods, setGoods] = useState([])
   const [indexActive, setIndexActive] = useState(0)
   // const [addProducts, setAddProducts] = useState([])
 
-  const { loading, addItem } = useCart()
+  const { isLoading, addItem } = useCart()
   // const sendingItems = useSendingItems()
 
   // const addCard = (item) => {
@@ -22,8 +23,12 @@ const CardSlider = () => {
   //   sendingItems(item)
   // }
   const requestData = async () => {
-    const res = await axios.get("https://fakestoreapi.com/products?limit=5")
-    setGoods(res.data)
+    try {
+      const res = await axios.get("https://fakestoreapi.com/products?limit=5")
+      setGoods(res.data)
+    } catch (error) {
+      console.log(error)
+    }
   }
 
   const nextSlider = () => {
@@ -56,38 +61,49 @@ const CardSlider = () => {
 
   return (
     <div className={styles.root}>
-      <button>
-        <MdArrowBackIos className={styles.iconLeft} onClick={prevSlider} />
-      </button>
+      {isLoading ? (
+        <Loader size={400} />
+      ) : (
+        <>
+          <button>
+            <MdArrowBackIos className={styles.iconLeft} onClick={prevSlider} />
+          </button>
 
-      {goods.map((item, i) => (
-        <div
-          onClick={() => setIndexActive(i)}
-          key={item.id}
-          className={cn(styles.container, indexActive === i && styles.active)}
-        >
-          <div className={styles.imgContainer}>
-            <img alt='#' src={item.image} />
-          </div>
+          {goods.map((item, i) => (
+            <div
+              onClick={() => setIndexActive(i)}
+              key={item.id}
+              className={cn(
+                styles.container,
+                indexActive === i && styles.active
+              )}
+            >
+              <div className={styles.imgContainer}>
+                <img alt='#' src={item.image} />
+              </div>
 
-          <div className={styles.content}>
-            <div className={styles.title}>{item.title}</div>
-            <div className={styles.price}>Цена: {item.price}$</div>
-          </div>
-          <div className={styles.btns}></div>
-          <MyButton
-            disabled={loading}
-            onClick={() => addItem(item)}
-            styles={styles.btnBasket}
-          >
-            {" "}
-            В корзину{" "}
-          </MyButton>
-        </div>
-      ))}
-      <button>
-        <MdArrowForwardIos className={styles.iconRight} onClick={nextSlider} />
-      </button>
+              <div className={styles.content}>
+                <div className={styles.title}>{item.title}</div>
+                <div className={styles.price}>Цена: {item.price}$</div>
+              </div>
+              <div className={styles.btns}></div>
+              <MyButton
+                disabled={isLoading}
+                onClick={() => addItem(item)}
+                styles={styles.btnBasket}
+              >
+                В Корзину
+              </MyButton>
+            </div>
+          ))}
+          <button>
+            <MdArrowForwardIos
+              className={styles.iconRight}
+              onClick={nextSlider}
+            />
+          </button>
+        </>
+      )}
     </div>
   )
 }

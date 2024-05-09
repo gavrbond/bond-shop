@@ -2,17 +2,18 @@ import React, { useEffect, useState } from "react"
 import styles from "./Order.module.scss"
 import { supabase } from "../../supabaseClient"
 import { Link } from "react-router-dom"
-import { useCart } from "../../hooks/useCart"
 import Loader from "../../components/Loader/Loader"
+import { useRecoilState } from "recoil"
+import { ordersState } from "../../states/ordersState"
 const Order = () => {
-  const [orders, setOrders] = useState([])
+  const [orders, setOrders] = useRecoilState(ordersState)
   const [isLoading, setLoading] = useState(false)
+  console.log(orders.length === 0)
   const fetchDataOrders = async () => {
-    setLoading(true)
-
     const user = await supabase.auth.getUser()
     const userId = user.data.user.id
     try {
+      setLoading(true)
       const { data, error } = await supabase
         .from("Orders")
         .select("products")
@@ -34,22 +35,20 @@ const Order = () => {
 
   return (
     <div className={styles.root}>
-      {!orders.length ? (
-        <div className={styles.backHome}>
-          <div className={styles.titleEmptyCart}>
-            Заказов нету,пожалуйста сделайте заказ
-          </div>
-          <Link to={"/"} className={styles.btnHome}>
-            Вернуться на главную Страницу
-          </Link>
+      {isLoading ? (
+        <div className={styles.loader}>
+          <Loader size='400' />
         </div>
       ) : (
         <>
-          {isLoading ? (
-            <div className={styles.loader}>
-              <div className={styles.containerLoader}>
-                <Loader size='300' />
+          {orders.length === 0 ? (
+            <div className={styles.backHome}>
+              <div className={styles.titleEmptyCart}>
+                Заказов нету,Сделайте заказ.
               </div>
+              <Link to={"/"} className={styles.btnHome}>
+                Вернуться на главную Страницу
+              </Link>
             </div>
           ) : (
             <>

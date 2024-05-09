@@ -8,10 +8,12 @@ import { cardsState } from "../../states/cardsState"
 import { useCart } from "../../hooks/useCart"
 import MyButton from "../../components/MyButton/MyButton"
 import Loader from "../../components/Loader/Loader"
+import { useFetchCards } from "../../hooks/useFetchCards"
 const Category = () => {
   const { searchItems } = useContext(SearchInput)
   const items = useRecoilValue(cardsState)
-  const { addItem, isLoading } = useCart()
+  const { isLoadingCards } = useFetchCards()
+  const { addItem } = useCart()
   // const { items } = useSelector((state) => state.data)
   // const { categoryActive } = useSelector((state) => state.filter)
   // const dispatch = useDispatch()
@@ -22,16 +24,14 @@ const Category = () => {
 
   return (
     <div className={styles.categoryContainer}>
-      <Sort />
-      <div className={styles.root}>
-        {isLoading ? (
-          <div className={styles.loader}>
-            <div className={styles.containerLoader}>
-              <Loader size='300' />
-            </div>
-          </div>
-        ) : (
-          <>
+      {isLoadingCards ? (
+        <div className={styles.loader}>
+          <Loader size={500} />
+        </div>
+      ) : (
+        <>
+          <Sort />
+          <div className={styles.root}>
             {items
               .filter(({ title }) =>
                 title.toLowerCase().includes(searchItems.toLowerCase())
@@ -58,7 +58,7 @@ const Category = () => {
                       <div className={styles.price}>
                         <span style={{ color: "white", fontSize: "16px" }}>
                           Цена:{" "}
-                          <span style={{ color: "black", fontSize: "16px" }}>
+                          <span style={{ color: "white", fontSize: "16px" }}>
                             ${price}
                           </span>
                         </span>
@@ -74,9 +74,9 @@ const Category = () => {
                   </div>
                 )
               })}
-          </>
-        )}
-      </div>
+          </div>
+        </>
+      )}
     </div>
   )
 }

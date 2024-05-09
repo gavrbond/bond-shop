@@ -1,4 +1,9 @@
-.orange {
-  background-color: orange;
-  font-size: 30px;
+button:disabled {
+  background-color: #848484;
+  color: #cbcbcb;
+}
+button[disabled]:hover {
+  background-color: #848484;
+  box-shadow: none;
+  color: #cbcbcb;
 }

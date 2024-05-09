@@ -12,6 +12,7 @@ import { useCart } from "../../hooks/useCart"
 import Loader from "../../components/Loader/Loader"
 import { ToastContainer, toast } from "react-toastify"
 import "react-toastify/dist/ReactToastify.css"
+
 const Cart = () => {
   const items = useRecoilValue(cartState)
   const { isLoading, emptyCart } = useCart()
@@ -59,9 +60,12 @@ const Cart = () => {
   // const { totalPrice, emptyCart } = useCart()
   return (
     <div className={styles.root}>
-      <ToastContainer />
-      <div className={styles.cartContainer}>
-        <div className={styles.product}>
+      {isLoading ? (
+        <div className={styles.loader}>
+          <Loader size='400' />
+        </div>
+      ) : (
+        <>
           {!items.length ? (
             <div className={styles.backHome}>
               <div className={styles.titleEmptyCart}>
@@ -73,14 +77,9 @@ const Cart = () => {
             </div>
           ) : (
             <>
-              {isLoading ? (
-                <div className={styles.loader}>
-                  <div className={styles.containerLoader}>
-                    <Loader size='300' />
-                  </div>
-                </div>
-              ) : (
-                <>
+              <ToastContainer />
+              <div className={styles.cartContainer}>
+                <div className={styles.product}>
                   <ActionsCart
                     isProductSelect={isProductSelect}
                     clearAllChecked={clearAllChecked}
@@ -97,21 +96,19 @@ const Cart = () => {
                       toggleItem={toggleItem}
                     />
                   ))}
-                </>
-              )}
+                </div>
+                <MakeOrders
+                  totalPrice={totalPrice}
+                  totalCount={totalCount}
+                  isProductSelect={isProductSelect}
+                  addOrder={addOrder}
+                />
+              </div>
             </>
           )}
-        </div>
-
-        <MakeOrders
-          totalPrice={totalPrice}
-          totalCount={totalCount}
-          isProductSelect={isProductSelect}
-          addOrder={addOrder}
-        />
-      </div>
+        </>
+      )}
     </div>
   )
 }
-
 export default Cart

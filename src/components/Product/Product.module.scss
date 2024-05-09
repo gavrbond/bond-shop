@@ -19,6 +19,7 @@
   }
 }
 .imgContainer {
+  flex: 1;
   height: 180px;
 }
 .img {
@@ -35,6 +36,8 @@
   gap: 15px;
   padding: 0 10px;
   width: 100%;
+  flex: 4;
+
   @media (max-width: 768px) {
     display: flex;
     flex-direction: row-reverse;

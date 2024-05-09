@@ -45,12 +45,12 @@ const SignUp = () => {
         const { data, error: signUpError } = await supabase.auth.signUp(
           userSignUp
         )
-        const userId = data.user.id
-        await supabase.from("Carts").insert([{ userId, cart: [] }])
 
         if (signUpError) {
           setErrorMessage(signUpError.error_description || signUpError.message)
         } else {
+          const userId = data.user.id
+          await supabase.from("Carts").insert([{ userId, cart: [] }])
           setSuccessMessage("Регистрация прошла успешно!")
           navigate("/")
         }
@@ -73,10 +73,12 @@ const SignUp = () => {
 
   return (
     <div className={styles.root}>
-      <div className={styles.signUp}>
-        {isLoading ? (
-          <Loader size='200' />
-        ) : (
+      {isLoading ? (
+        <div className={styles.loader}>
+          <Loader size='400' />
+        </div>
+      ) : (
+        <div className={styles.signUp}>
           <form onSubmit={handleSubmit} className={styles.form} action=''>
             {inputMapping.map(({ name, placeholder, type }) => (
               <div key={name} className={styles.inputDiv}>
@@ -95,13 +97,13 @@ const SignUp = () => {
               Зарегистрироваться
             </button>
 
-            {userMessage && <div>{userMessage}</div>}
+            {userMessage && <div style={{ color: "red" }}>{userMessage}</div>}
             <Link to='/' className={styles.btnClose}>
               <AiOutlineCloseCircle />
             </Link>
           </form>
-        )}
-      </div>
+        </div>
+      )}
     </div>
   )
 }

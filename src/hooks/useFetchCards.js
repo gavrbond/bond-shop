@@ -3,21 +3,22 @@ import { cardsState } from "../states/cardsState"
 import { useRecoilValue } from "recoil"
 import { categoryActive } from "../states/categoryActive"
 import { sort } from "../states/sort"
-import { useEffect } from "react"
+import { useEffect, useState } from "react"
 import axios from "axios"
 
 export const useFetchCards = () => {
   const [cards, setCards] = useRecoilState(cardsState)
   const categorySelect = useRecoilValue(categoryActive)
   const sortSelect = useRecoilValue(sort)
-  console.log(sortSelect)
+  const [isLoadingCards, setIsLoadingCards] = useState(false)
+
   const fetchCards = async () => {
     const category =
       categorySelect !== "All" ? `category/${categorySelect}` : ""
-    console.log(category)
     const order = sortSelect.sortProperty.includes("-") ? "desc" : "asc"
     console.log(order)
     try {
+      setIsLoadingCards(true)
       const { data } = await axios.get(
         `https://fakestoreapi.com/products/${category}?&sort=${order}`
       )
@@ -26,6 +27,8 @@ export const useFetchCards = () => {
       return data
     } catch (error) {
       console.log(error)
+    } finally {
+      setIsLoadingCards(false)
     }
   }
 
@@ -33,5 +36,5 @@ export const useFetchCards = () => {
     fetchCards()
   }, [categorySelect, sortSelect])
 
-  return { fetchCards, cards }
+  return { fetchCards, cards, isLoadingCards }
 }
