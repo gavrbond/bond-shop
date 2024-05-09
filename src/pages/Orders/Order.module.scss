@@ -2,9 +2,11 @@
   display: flex;
   justify-content: center;
   flex-wrap: wrap;
+  height: calc(100dvh - 100px);
   gap: 20px;
   background-color: rgb(243, 243, 243);
   padding: 10px;
+  overflow: scroll;
 }
 .order {
   position: relative;
@@ -12,6 +14,7 @@
   flex-wrap: wrap;
   gap: 10px 10px;
   width: 50%;
+  height: fit-content;
   margin: 0 auto;
   border-radius: 10px;
   padding: 45px 20px 10px 20px;
@@ -34,7 +37,7 @@
   }
 }
 
-.info {
+.link {
   cursor: pointer;
   display: flex;
   flex-direction: column;

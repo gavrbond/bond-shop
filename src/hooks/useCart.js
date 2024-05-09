@@ -89,6 +89,7 @@ export const useCart = () => {
     const userId = user.data.user.id
 
     try {
+      setLoading(true)
       await supabase
         .from('Carts')
         .update({ cart: addItemHandler(item) })
@@ -97,8 +98,11 @@ export const useCart = () => {
       fetchCartData()
     } catch (error) {
       console.log(error)
+    } finally {
+      setLoading(false)
     }
   }
+
   useEffect(() => {
     fetchCartData()
   }, [])

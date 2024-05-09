@@ -1,17 +1,16 @@
-import React from "react"
-import styles from "./Cart.module.scss"
-import { useRecoilValue } from "recoil"
-import { cartState } from "../../states/cartState"
-import MakeOrders from "../../components/MakeOrders/MakeOrders"
-import Product from "../../components/Product/Product"
-import { useSelectedItems } from "../../hooks/useSelectedItems"
-import ActionsCart from "../../components/ActionsCart/ActionsCart"
-import { Link } from "react-router-dom"
-import { supabase } from "../../supabaseClient"
-import { useCart } from "../../hooks/useCart"
-import Loader from "../../components/Loader/Loader"
-import { ToastContainer, toast } from "react-toastify"
-import "react-toastify/dist/ReactToastify.css"
+import { ToastContainer, toast } from 'react-toastify'
+import 'react-toastify/dist/ReactToastify.css'
+import { useRecoilValue } from 'recoil'
+import ActionsCart from '../../components/ActionsCart/ActionsCart'
+import Loader from '../../components/Loader/Loader'
+import MakeOrders from '../../components/MakeOrders/MakeOrders'
+import { Placeholder } from '../../components/Placeholder/Placeholder'
+import Product from '../../components/Product/Product'
+import { useCart } from '../../hooks/useCart'
+import { useSelectedItems } from '../../hooks/useSelectedItems'
+import { cartState } from '../../states/cartState'
+import { supabase } from '../../supabaseClient'
+import styles from './Cart.module.scss'
 
 const Cart = () => {
   const items = useRecoilValue(cartState)
@@ -36,20 +35,20 @@ const Cart = () => {
   }, 0)
 
   const addOrder = async () => {
-    toast.success("Товар успешно заказан!", {
-      position: "top-right",
+    toast.success('Товар успешно заказан!', {
+      position: 'top-right',
       autoClose: 5000,
       hideProgressBar: false,
       closeOnClick: true,
       pauseOnHover: true,
       draggable: true,
       progress: undefined,
-      theme: "light",
+      theme: 'light',
     })
     const user = await supabase.auth.getUser()
     const userId = user.data.user.id
     try {
-      await supabase.from("Orders").insert([{ userId, products: checkedItems }])
+      await supabase.from('Orders').insert([{ userId, products: checkedItems }])
     } catch (error) {
       console.log(error)
     } finally {
@@ -57,57 +56,49 @@ const Cart = () => {
     }
   }
 
-  // const { totalPrice, emptyCart } = useCart()
+  if (isLoading) {
+    return (
+      <div className={styles.loader}>
+        <Loader size="400" />
+      </div>
+    )
+  }
+
+  if (items.length === 0) {
+    return (
+      <div className={styles.root}>
+        <Placeholder title="Корзина пуста" />
+      </div>
+    )
+  }
+
   return (
     <div className={styles.root}>
-      {isLoading ? (
-        <div className={styles.loader}>
-          <Loader size='400' />
+      <ToastContainer />
+      <div className={styles.cartContainer}>
+        <div className={styles.product}>
+          <ActionsCart
+            isProductSelect={isProductSelect}
+            clearAllChecked={clearAllChecked}
+            isCheckedAll={isCheckedAll}
+            selectAll={selectAll}
+          />
+          {items.map(product => (
+            <Product
+              key={product.id}
+              {...product}
+              isChecked={checkedItems.some(({ id }) => id === product.id)}
+              toggleItem={toggleItem}
+            />
+          ))}
         </div>
-      ) : (
-        <>
-          {!items.length ? (
-            <div className={styles.backHome}>
-              <div className={styles.titleEmptyCart}>
-                Корзина пуста,добавьте товар в корзину!
-              </div>
-              <Link to={"/"} className={styles.btnHome}>
-                Вернуться на главную Страницу
-              </Link>
-            </div>
-          ) : (
-            <>
-              <ToastContainer />
-              <div className={styles.cartContainer}>
-                <div className={styles.product}>
-                  <ActionsCart
-                    isProductSelect={isProductSelect}
-                    clearAllChecked={clearAllChecked}
-                    isCheckedAll={isCheckedAll}
-                    selectAll={selectAll}
-                  />
-                  {items.map((product) => (
-                    <Product
-                      key={product.id}
-                      {...product}
-                      isChecked={checkedItems.some(
-                        ({ id }) => id === product.id
-                      )}
-                      toggleItem={toggleItem}
-                    />
-                  ))}
-                </div>
-                <MakeOrders
-                  totalPrice={totalPrice}
-                  totalCount={totalCount}
-                  isProductSelect={isProductSelect}
-                  addOrder={addOrder}
-                />
-              </div>
-            </>
-          )}
-        </>
-      )}
+        <MakeOrders
+          totalPrice={totalPrice}
+          totalCount={totalCount}
+          isProductSelect={isProductSelect}
+          addOrder={addOrder}
+        />
+      </div>
     </div>
   )
 }

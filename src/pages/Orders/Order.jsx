@@ -5,7 +5,7 @@ import { Link } from 'react-router-dom'
 import Loader from '../../components/Loader/Loader'
 import { useRecoilState } from 'recoil'
 import { ordersState } from '../../states/ordersState'
-import { Placeholder } from './Placeholder/Placeholder'
+import { Placeholder } from '../../components/Placeholder/Placeholder'
 
 const Order = () => {
   const [orders, setOrders] = useRecoilState(ordersState)
@@ -45,46 +45,51 @@ const Order = () => {
     )
   }
 
+  if (orders?.length === 0) {
+    return (
+      <div className={styles.root}>
+        <Placeholder title="Список заказов пуст" />
+      </div>
+    )
+  }
+
   return (
     <div className={styles.root}>
-      {orders.length === 0 ? (
-        <Placeholder />
-      ) : (
-        orders.map(({ products }) => {
-          const totalPrice = products.reduce(
+      {orders?.map(({ products }) => {
+        const totalPrice = Math.round(
+          products.reduce(
             (acc, { price, quantity }) => price * quantity + acc,
             0
           )
-          return (
-            <div className={styles.order}>
-              <div className={styles.infoOrder}>
-                <div className={styles.status}>
-                  Сатус товара : <span>Получен</span>
-                </div>
-                <div className={styles.price}>
-                  Общая цена заказа : <span> {Math.round(totalPrice)}$ </span>
-                </div>
-              </div>
+        )
 
-              {products.map(product => {
-                return (
-                  <Link to={`/card/${product.id}`}>
-                    <div className={styles.info}>
-                      <div className={styles.quantity}>
-                        Кол-во товаров: <span> {product.quantity}</span>
-                      </div>
-                      <div className={styles.imgContainer}>
-                        <img src={product.image} alt="#" />
-                      </div>
-                      <div className={styles.title}>{product.title}</div>
-                    </div>
-                  </Link>
-                )
-              })}
+        return (
+          <div className={styles.order}>
+            <div className={styles.infoOrder}>
+              <div className={styles.status}>
+                Сатус товара: <span>Получен</span>
+              </div>
+              <div className={styles.price}>
+                Общая цена заказа : <span> {totalPrice}$ </span>
+              </div>
             </div>
-          )
-        })
-      )}
+
+            {products.map(({ quantity, id, image, title }) => {
+              return (
+                <Link to={`/card/${id}`} className={styles.link}>
+                  <div className={styles.quantity}>
+                    Кол-во товаров: <span>{quantity}</span>
+                  </div>
+                  <div className={styles.imgContainer}>
+                    <img src={image} alt="#" />
+                  </div>
+                  <div className={styles.title}>{title}</div>
+                </Link>
+              )
+            })}
+          </div>
+        )
+      })}
     </div>
   )
 }

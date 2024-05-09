@@ -6,6 +6,7 @@ import cn from 'classnames'
 import { useRef } from 'react'
 import { useRecoilState } from 'recoil'
 import { sort } from '../../states/sort'
+import { useSearchParams } from 'react-router-dom'
 
 const list = [
   { name: 'По названию (По возрастанию)', sortProperty: 'title' },
@@ -15,7 +16,9 @@ const list = [
 const Sort = () => {
   const [sorting, setSorting] = useRecoilState(sort)
 
-  const [isClicked, setIsClicked] = useState(false)
+  const [searchParams, setSearchParams] = useSearchParams()
+
+  const [isExpanded, setExpanded] = useState(false)
 
   const sortRef = useRef(null)
 
@@ -23,7 +26,7 @@ const Sort = () => {
     const handleClick = event => {
       const path = event.composedPath()
       if (!path.includes(sortRef.current)) {
-        setIsClicked(false)
+        setExpanded(false)
       }
     }
     document.body.addEventListener('click', handleClick)
@@ -32,24 +35,28 @@ const Sort = () => {
     }
   }, [sortRef])
 
+  const toggleExpand = () => {
+    setExpanded(state => !state)
+  }
+
   const onClickSort = obj => {
+    // setSearchParams({
+    //   sortProperty:
+    // })
     setSorting(obj)
-    setIsClicked(false)
+    toggleExpand()
   }
 
   return (
     <div ref={sortRef} className={styles.sortContainer}>
       <div className={styles.sort}>
-        <TiArrowSortedUp className={isClicked && styles.arrow} />
+        <TiArrowSortedUp className={isExpanded && styles.arrow} />
         <div className={styles.text}>Сортировка по:</div>
-        <button
-          onClick={() => setIsClicked(!isClicked)}
-          className={styles.activeBtn}
-        >
+        <button onClick={toggleExpand} className={styles.activeBtn}>
           {sorting.name}
         </button>
-        {isClicked && (
-          <ul className={isClicked && styles.choose}>
+        {isExpanded && (
+          <ul className={styles.choose}>
             {list.map((obj, i) => (
               <li
                 key={i}
