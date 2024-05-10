@@ -70,40 +70,36 @@ const SignUp = () => {
   }
 
   const userMessage = successMessage || errorMessage
-
+  if (isLoading) {
+    return <Loader size={400} />
+  }
   return (
     <div className={styles.root}>
-      {isLoading ? (
-        <div className={styles.loader}>
-          <Loader size='400' />
-        </div>
-      ) : (
-        <div className={styles.signUp}>
-          <form onSubmit={handleSubmit} className={styles.form} action=''>
-            {inputMapping.map(({ name, placeholder, type }) => (
-              <div key={name} className={styles.inputDiv}>
-                <input
-                  className={styles.inputForm}
-                  value={userSignUp[name]}
-                  onChange={handleChange}
-                  name={name}
-                  placeholder={placeholder}
-                  type={type}
-                />
-              </div>
-            ))}
+      <div className={styles.signUp}>
+        <form onSubmit={handleSubmit} className={styles.form} action=''>
+          {inputMapping.map(({ name, placeholder, type }) => (
+            <div key={name} className={styles.inputDiv}>
+              <input
+                className={styles.inputForm}
+                value={userSignUp[name]}
+                onChange={handleChange}
+                name={name}
+                placeholder={placeholder}
+                type={type}
+              />
+            </div>
+          ))}
 
-            <button type='submit' className={styles.btnSignUp}>
-              Зарегистрироваться
-            </button>
+          <button type='submit' className={styles.btnSignUp}>
+            Зарегистрироваться
+          </button>
 
-            {userMessage && <div style={{ color: "red" }}>{userMessage}</div>}
-            <Link to='/' className={styles.btnClose}>
-              <AiOutlineCloseCircle />
-            </Link>
-          </form>
-        </div>
-      )}
+          {userMessage && <div style={{ color: "red" }}>{userMessage}</div>}
+          <Link to='/' className={styles.btnClose}>
+            <AiOutlineCloseCircle />
+          </Link>
+        </form>
+      </div>
     </div>
   )
 }

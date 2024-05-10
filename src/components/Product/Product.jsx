@@ -1,11 +1,11 @@
-import { useEffect } from 'react'
-import styles from './Product.module.scss'
-import { AiFillPlusCircle } from 'react-icons/ai'
-import { AiFillMinusCircle } from 'react-icons/ai'
-import { IoMdClose } from 'react-icons/io'
-import { useCart } from '../../hooks/useCart'
-import { useSelectedItems } from '../../hooks/useSelectedItems'
-
+import { useEffect } from "react"
+import styles from "./Product.module.scss"
+import { AiFillPlusCircle } from "react-icons/ai"
+import { AiFillMinusCircle } from "react-icons/ai"
+import { IoMdClose } from "react-icons/io"
+import { useCart } from "../../hooks/useCart"
+import { useSelectedItems } from "../../hooks/useSelectedItems"
+import Loader from "../Loader/Loader"
 const Product = ({
   id,
   price,
@@ -33,25 +33,25 @@ const Product = ({
   }, [])
 
   if (isLoading) {
-    return <h1>Loader</h1>
+    return <Loader size={400} />
   }
 
   return (
     <div className={styles.basket}>
       <input
         className={styles.checkBox}
-        type="checkbox"
+        type='checkbox'
         checked={isChecked}
         onChange={() => toggleItem(item)}
       />
 
       <div className={styles.basketContainer}>
         <div className={styles.imgContainer}>
-          <img className={styles.img} alt="#" src={image} />
+          <img className={styles.img} alt='#' src={image} />
         </div>
         <div className={styles.info}>
           <div className={styles.title}>
-            <span style={{ color: 'white' }}>Название: </span>
+            <span style={{ color: "white" }}>Название: </span>
             {title}
           </div>
           <div className={styles.desc}>
@@ -83,7 +83,7 @@ const Product = ({
             </div>
             <div className={styles.navigation}>
               <button onClick={() => deleteItem(item.id)}>
-                {' '}
+                {" "}
                 <div>
                   <IoMdClose />
                 </div>
