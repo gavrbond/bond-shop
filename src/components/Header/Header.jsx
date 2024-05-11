@@ -7,7 +7,7 @@ import cn from "classnames"
 import Nav from "../Nav/Nav"
 import { useAuth } from "../../AuthContext"
 import Actions from "../Actions/Actions"
-import { useState } from "react"
+import { useState, useEffect, useRef } from "react"
 import { IoSearchOutline } from "react-icons/io5"
 import { ToastContainer } from "react-toastify"
 
@@ -15,6 +15,18 @@ const Header = () => {
   const { session } = useAuth()
   const [showCategories, setShowCategories] = useState(false)
   const [showInput, setShowInput] = useState(false)
+
+  const sortRef = useRef(null)
+  useEffect(() => {
+    const handleClick = (event) => {
+      const path = event.composedPath()
+      if (!path.includes(sortRef.current)) {
+        setShowCategories(false)
+      }
+    }
+    document.body.addEventListener("click", handleClick)
+    return () => document.body.removeEventListener("click", handleClick)
+  }, [sortRef])
 
   return (
     <div className={styles.root}>
@@ -39,6 +51,7 @@ const Header = () => {
           </div>
 
           <button
+            ref={sortRef}
             onClick={() => setShowCategories(!showCategories)}
             className={styles.btnCategory}
           >

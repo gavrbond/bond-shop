@@ -8,12 +8,13 @@ import { useCart } from "../../hooks/useCart"
 import { useFetchCards } from "../../hooks/useFetchCards"
 import styles from "./Category.module.scss"
 import { Placeholder } from "../../components/Placeholder/Placeholder"
-
+import { useParams } from "react-router-dom"
 const Category = () => {
   const { searchItems } = useContext(SearchInput)
   const { isLoading: isFetchCardsLoading, data } = useFetchCards()
   const { addItem, isLoading: isCartLoading } = useCart()
-
+  const params = useParams()
+  console.log(params)
   const filteredData = data?.filter(({ title }) =>
     title.toLowerCase().includes(searchItems.toLowerCase())
   )
