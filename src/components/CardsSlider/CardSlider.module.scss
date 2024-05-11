@@ -24,7 +24,7 @@
   opacity: 0.3;
   background-color: #fff;
   width: 200px;
-  height: 60%;
+  height: 70%;
   border-radius: 10px;
   position: relative;
   display: flex;
@@ -48,6 +48,8 @@
   }
   @media (max-width: 768px) {
     width: 50%;
+    height: 350px;
+    padding: 10px;
   }
 }
 .content {
