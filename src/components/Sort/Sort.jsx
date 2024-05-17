@@ -1,45 +1,43 @@
-import { useEffect } from 'react'
-import styles from './Sort.module.scss'
-import { TiArrowSortedUp } from 'react-icons/ti'
-import { useState } from 'react'
-import cn from 'classnames'
-import { useRef } from 'react'
-import { useRecoilState } from 'recoil'
-import { sort } from '../../states/sort'
-import { useSearchParams } from 'react-router-dom'
+import { useEffect } from "react"
+import styles from "./Sort.module.scss"
+import { TiArrowSortedUp } from "react-icons/ti"
+import { useState } from "react"
+import cn from "classnames"
+import { useRef } from "react"
+import { useRecoilState } from "recoil"
+import { sort } from "../../states/sort"
+import { useSearchParams } from "react-router-dom"
 
 const list = [
-  { name: 'По названию (По возрастанию)', sortProperty: 'title' },
-  { name: 'По названию (По убыванию)', sortProperty: '-title' },
+  { name: "По названию (По возрастанию)", sortProperty: "title" },
+  { name: "По названию (По убыванию)", sortProperty: "-title" },
 ]
 
 const Sort = () => {
   const [sorting, setSorting] = useRecoilState(sort)
-
-  const [searchParams, setSearchParams] = useSearchParams()
 
   const [isExpanded, setExpanded] = useState(false)
 
   const sortRef = useRef(null)
 
   useEffect(() => {
-    const handleClick = event => {
+    const handleClick = (event) => {
       const path = event.composedPath()
       if (!path.includes(sortRef.current)) {
         setExpanded(false)
       }
     }
-    document.body.addEventListener('click', handleClick)
+    document.body.addEventListener("click", handleClick)
     return () => {
-      document.body.removeEventListener('click', handleClick)
+      document.body.removeEventListener("click", handleClick)
     }
   }, [sortRef])
 
   const toggleExpand = () => {
-    setExpanded(state => !state)
+    setExpanded((state) => !state)
   }
 
-  const onClickSort = obj => {
+  const onClickSort = (obj) => {
     // setSearchParams({
     //   sortProperty:
     // })

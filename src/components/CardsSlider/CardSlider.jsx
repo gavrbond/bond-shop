@@ -1,39 +1,21 @@
 import React from "react"
 import styles from "./CardSlider.module.scss"
-import axios from "axios"
 import { useState, useEffect } from "react"
 import cn from "classnames"
 import { MdArrowBackIos } from "react-icons/md"
 import { MdArrowForwardIos } from "react-icons/md"
-import { supabase } from "../../supabaseClient"
 import { useCart } from "../../hooks/useCart"
 import MyButton from "../MyButton/MyButton"
 import Loader from "../Loader/Loader"
-
+import { useFetchCards } from "../../hooks/useFetchCards"
 const CardSlider = () => {
-  const [goods, setGoods] = useState([])
   const [indexActive, setIndexActive] = useState(0)
-  // const [addProducts, setAddProducts] = useState([])
-
+  const { data, isLoading: isLoadingCards } = useFetchCards(5)
   const { isLoading, addItem } = useCart()
-  // const sendingItems = useSendingItems()
-
-  // const addCard = (item) => {
-  //   setAddProducts((prev) => [...prev, item])
-  //   sendingItems(item)
-  // }
-  const requestData = async () => {
-    try {
-      const res = await axios.get("https://fakestoreapi.com/products?limit=5")
-      setGoods(res.data)
-    } catch (error) {
-      console.log(error)
-    }
-  }
 
   const nextSlider = () => {
     setIndexActive((prev) => {
-      return indexActive <= goods.length - 1 ? prev + 1 : prev
+      return indexActive <= data?.length - 1 ? prev + 1 : prev
     })
   }
   const prevSlider = () => {
@@ -43,22 +25,17 @@ const CardSlider = () => {
   }
 
   useEffect(() => {
-    if (indexActive >= goods.length) {
+    if (indexActive >= data?.length) {
       setIndexActive(0)
     }
     if (indexActive < 0) {
-      setIndexActive(goods.length - 1)
+      setIndexActive(data?.length - 1)
     }
-  }, [indexActive, goods])
+  }, [indexActive, data])
 
-  useEffect(() => {
-    requestData()
-  }, [])
-
-  // useEffect(() => {
-  //   sendingItems(addProducts)
-  // }, [addProducts, sendingItems])
-
+  if (isLoadingCards) {
+    return <Loader size={400} />
+  }
   return (
     <div className={styles.root}>
       {isLoading ? (
@@ -69,7 +46,7 @@ const CardSlider = () => {
             <MdArrowBackIos className={styles.iconLeft} onClick={prevSlider} />
           </button>
 
-          {goods.map((item, i) => (
+          {data?.map((item, i) => (
             <div
               onClick={() => setIndexActive(i)}
               key={item.id}
