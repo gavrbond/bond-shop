@@ -14,7 +14,6 @@ const Category = () => {
   const { isLoading: isFetchCardsLoading, data } = useFetchCards()
   const { addItem, isLoading: isCartLoading } = useCart()
   const params = useParams()
-  console.log(params)
   const filteredData = data?.filter(({ title }) =>
     title.toLowerCase().includes(searchItems.toLowerCase())
   )
@@ -60,7 +59,7 @@ const Category = () => {
                   </div>
                   <MyButton
                     onClick={() => addItem(item)}
-                    styles={styles.btnBasket}
+                    styleBtn={styles.btnBasket}
                   >
                     {" "}
                     В корзину{" "}

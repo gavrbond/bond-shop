@@ -63,12 +63,7 @@ const CardSlider = () => {
                 <div className={styles.title}>{item.title}</div>
                 <div className={styles.price}>Цена: {item.price}$</div>
               </div>
-              <div className={styles.btns}></div>
-              <MyButton
-                disabled={isLoading}
-                onClick={() => addItem(item)}
-                styles={styles.btnBasket}
-              >
+              <MyButton disabled={isLoading} onClick={() => addItem(item)}>
                 В Корзину
               </MyButton>
             </div>

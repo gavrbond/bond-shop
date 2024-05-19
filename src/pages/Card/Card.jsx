@@ -42,7 +42,7 @@ const Card = () => {
                 </div>
                 <MyButton
                   onClick={() => addItem(item)}
-                  styles={styles.btnBasket}
+                  styleBtn={styles.btnBasket}
                 >
                   {" "}
                   В корзину{" "}

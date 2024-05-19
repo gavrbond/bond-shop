@@ -19,7 +19,6 @@ const Sort = () => {
   const [isExpanded, setExpanded] = useState(false)
 
   const sortRef = useRef(null)
-
   useEffect(() => {
     const handleClick = (event) => {
       const path = event.composedPath()
@@ -38,9 +37,6 @@ const Sort = () => {
   }
 
   const onClickSort = (obj) => {
-    // setSearchParams({
-    //   sortProperty:
-    // })
     setSorting(obj)
     toggleExpand()
   }

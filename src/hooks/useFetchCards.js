@@ -7,8 +7,8 @@ const fetchCards = async (url) => {
   const data = await fetchedData.json()
   return data
 }
-
 export const useFetchCards = (limit) => {
+  const limitQueryParam = limit ? `&limit=${limit}` : ""
   const sortSelect = useRecoilValue(sort)
   const { category } = useParams()
   const targetCategory =
@@ -16,12 +16,11 @@ export const useFetchCards = (limit) => {
 
   const order = sortSelect.sortProperty.includes("-") ? "desc" : "asc"
 
-  const url = `https://fakestoreapi.com/products/${targetCategory}?&sort=${order}&limit=${limit}`
+  const url = `https://fakestoreapi.com/products/${targetCategory}?&sort=${order}${limitQueryParam}`
 
   const { data, isLoading } = useQuery({
     queryKey: ["cards", category, sortSelect, limit],
     queryFn: () => fetchCards(url),
   })
-  console.log(data)
   return { data, isLoading }
 }

@@ -33,7 +33,7 @@ const Header = () => {
       <ToastContainer />
       <div className={styles.info}>
         <Link to='/' className={styles.logo}>
-          Gavr
+          bond
         </Link>
         <div className={styles.adaptive}>
           <div className={styles.searchInAdaptive}>
